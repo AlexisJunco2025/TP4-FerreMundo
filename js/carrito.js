@@ -1,4 +1,4 @@
-
+﻿
 const contenedorCarrito = document.getElementById("carrito");
 
 // IDENTIFICAR AL USUARIO CONECTADO
@@ -28,7 +28,7 @@ function mostrarCarrito() {
             <article class="item-carrito">
 
                 <div class="imagen-carrito">
-                    <img src="${producto.imagen}" alt="${producto.titulo}">
+                    <img src="${producto.imagen.replace(/^\.\/imagenes\//, "../imagenes/")}" alt="${producto.titulo}">
                 </div>
 
                 <div class="informacion-carrito">
@@ -55,7 +55,7 @@ function mostrarCarrito() {
                             class="btnCantidad"
                             data-accion="disminuir"
                             data-indice="${indice}">
-                            −
+                            âˆ’
                         </button>
 
                         <span class="cantidad-carrito">
@@ -95,15 +95,15 @@ function mostrarCarrito() {
 
     });
 
-    // MOSTRAR MENSAJE CUANDO EL CARRITO ESTÁ VACÍO
+    // MOSTRAR MENSAJE CUANDO EL CARRITO ESTÃ VACÃO
     if (carrito.length === 0) {
 
         contenido = `
             <div class="carrito-vacio">
 
-                <span class="icono-carrito-vacio">🛒</span>
+                <span class="icono-carrito-vacio">&#128722;</span>
 
-                <h2>Tu carrito está vacío</h2>
+                <h2>Tu carrito est&aacute; vac&iacute;o</h2>
 
             </div>
         `;
@@ -188,3 +188,5 @@ if (contenedorCarrito) {
 
 // INICIAR EL CARRITO
 mostrarCarrito();
+
+
