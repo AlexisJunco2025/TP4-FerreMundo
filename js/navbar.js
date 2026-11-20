@@ -1,25 +1,34 @@
+﻿
+(function() {
 
-const paginas = [
-    { titulo: "Inicio", direccion: "./index.html" },
-    { titulo: "Ferretería", direccion: "./ferreteria.html" },
-    { titulo: "Herramientas", direccion: "./herramientas.html" },
-    { titulo: "Materiales", direccion: "./materiales.html" },
-    { titulo: "Seguridad", direccion: "./seguridad.html" }
-];
+    const paginas = [
+        { titulo: "Inicio", direccion: "./index.html" },
+        { titulo: "Ferretería", direccion: "./ferreteria.html" },
+        { titulo: "Herramientas", direccion: "./herramientas.html" },
+        { titulo: "Materiales", direccion: "./materiales.html" },
+        { titulo: "Seguridad", direccion: "./seguridad.html" }
+    ];
 
-const contenedorNavbar = document.getElementById("navbar");
+    const contenedorNavbar = document.getElementById("navbar");
 
-if (contenedorNavbar) {
-
-    // Verifica si el usuario inició sesión.
-    if (sessionStorage.getItem("logueado") !== "true") {
-        window.location.href = "./login.html";
+    if (!contenedorNavbar) {
+        return;
     }
 
+    // VERIFICAR SI EL USUARIO INICIÓ SESIÓN
+    if (sessionStorage.getItem("logueado") !== "true") {
+
+        window.location.replace("./login.html");
+        return;
+
+    }
+
+    // CONSTRUIR LA BARRA DE NAVEGACIÓN
     let contenidoNavbar = `
         <nav class="navbar">
+
             <a href="./index.html" class="logo">
-                <img src="./imagenes/FerreMundo.png" alt="Logo FerreMundo">
+                <img src="../imagenes/FerreMundo.png" alt="Logo FerreMundo">
                 FerreMundo
             </a>
 
@@ -27,6 +36,7 @@ if (contenedorNavbar) {
     `;
 
     paginas.forEach(function(pagina) {
+
         contenidoNavbar += `
             <li>
                 <a href="${pagina.direccion}">
@@ -34,6 +44,7 @@ if (contenedorNavbar) {
                 </a>
             </li>
         `;
+
     });
 
     const usuario = sessionStorage.getItem("usuario");
@@ -52,18 +63,22 @@ if (contenedorNavbar) {
             <button type="button" id="btnCerrarSesion">
                 Cerrar sesión
             </button>
+
         </nav>
     `;
 
     contenedorNavbar.innerHTML = contenidoNavbar;
 
-    const botonCerrarSesion =
-        document.getElementById("btnCerrarSesion");
+    // CERRAR SESIÓN
+    const botonCerrarSesion = document.getElementById("btnCerrarSesion");
 
     botonCerrarSesion.addEventListener("click", function() {
+
         sessionStorage.removeItem("logueado");
         sessionStorage.removeItem("usuario");
 
         window.location.href = "./login.html";
+
     });
-}
+
+})();

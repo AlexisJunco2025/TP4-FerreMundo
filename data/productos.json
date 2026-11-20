@@ -1,0 +1,101 @@
+
+[
+    {
+        "titulo": "Martillo",
+        "descripcion": "Martillo de uso general para construcción y reparación.",
+        "precio": 12500,
+        "imagen": "../imagenes/martillo.jpg",
+        "categoria": "ferreteria"
+    },
+    {
+        "titulo": "Destornillador",
+        "descripcion": "Destornillador para trabajos de mantenimiento.",
+        "precio": 6500,
+        "imagen": "../imagenes/destornillador.jpg",
+        "categoria": "ferreteria"
+    },
+    {
+        "titulo": "Alicate",
+        "descripcion": "Alicate de uso general para trabajos de ferretería.",
+        "precio": 8900,
+        "imagen": "../imagenes/alicate.webp",
+        "categoria": "ferreteria"
+    },
+    {
+        "titulo": "Taladro",
+        "descripcion": "Taladro eléctrico para perforaciones.",
+        "precio": 65000,
+        "imagen": "../imagenes/taladro.jpg",
+        "categoria": "herramientas"
+    },
+    {
+        "titulo": "Sierra",
+        "descripcion": "Sierra para cortar diferentes materiales.",
+        "precio": 15000,
+        "imagen": "../imagenes/sierra.jpg",
+        "categoria": "herramientas"
+    },
+    {
+        "titulo": "Amoladora",
+        "descripcion": "Amoladora para cortar, pulir y desbastar.",
+        "precio": 12000,
+        "imagen": "../imagenes/amoladora.jpg",
+        "categoria": "herramientas"
+    },
+    {
+        "titulo": "Cinta métrica",
+        "descripcion": "Cinta métrica resistente para mediciones.",
+        "precio": 9000,
+        "imagen": "../imagenes/cinta.jpg",
+        "categoria": "herramientas"
+    },
+    {
+        "titulo": "Ladrillos",
+        "descripcion": "Ladrillos para trabajos de construcción.",
+        "precio": 500,
+        "imagen": "../imagenes/ladrillos.jpg",
+        "categoria": "materiales"
+    },
+    {
+        "titulo": "Arena",
+        "descripcion": "Arena para mezclas y construcción.",
+        "precio": 12000,
+        "imagen": "../imagenes/arena.webp",
+        "categoria": "materiales"
+    },
+    {
+        "titulo": "Cal",
+        "descripcion": "Cal para trabajos de albañilería.",
+        "precio": 8000,
+        "imagen": "../imagenes/cal.jpg",
+        "categoria": "materiales"
+    },
+    {
+        "titulo": "Guantes",
+        "descripcion": "Guantes para proteger las manos.",
+        "precio": 7500,
+        "imagen": "../imagenes/guantes.jpg",
+        "categoria": "seguridad"
+    },
+    {
+        "titulo": "Gafas de seguridad",
+        "descripcion": "Protección ocular para el trabajo.",
+        "precio": 9000,
+        "imagen": "../imagenes/gafas.jpg",
+        "categoria": "seguridad"
+    },
+    {
+        "titulo": "Protector auditivo",
+        "descripcion": "Protección para los oídos.",
+        "precio": 11000,
+        "imagen": "../imagenes/protectoraud.jpg",
+        "categoria": "seguridad"
+    },
+    {
+        "titulo": "Casco de seguridad",
+        "descripcion": "Elementos para trabajar con protección.",
+        "precio": 18000,
+        "imagen": "../imagenes/casco.jpg",
+        "categoria": "seguridad"
+    }
+]

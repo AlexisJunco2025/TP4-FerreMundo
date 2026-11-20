@@ -1,142 +1,201 @@
 
-const contenedorProductos = document.getElementById("productos");
+// MOSTRAR PRODUCTOS EN LAS DIFERENTES PAGINAS
 
-if (contenedorProductos) {
+productosCargados.then(function(productos) {
+
+    const contenedorProductos = document.getElementById("productos");
+
+    if (!contenedorProductos) {
+        return;
+    }
+
     const categoria = contenedorProductos.dataset.categoria;
 
-    console.log("Categoría detectada:", categoria);
-    console.log("Productos cargados:", productos);
-    console.log("Cantidad de productos:", productos.length);
+    let productosMostrar = productos;
 
-    let productosMostrar = [];
+    // MOSTRAR 3 PRODUCTOS POR CATEGORIA EN INICIO
 
-    // PRODUCTOS DESTACADOS EN LA PÁGINA DE INICIO
     if (categoria === "inicio") {
-        const nombresCategorias = [
+
+        const categorias = [
             "ferreteria",
             "herramientas",
             "materiales",
             "seguridad"
         ];
 
-        nombresCategorias.forEach(function(nombreCategoria) {
+        productosMostrar = [];
+
+        categorias.forEach(function(nombreCategoria) {
+
             const productosCategoria = productos.filter(function(producto) {
                 return producto.categoria === nombreCategoria;
             });
 
             productosMostrar = productosMostrar.concat(
-                productosCategoria.slice(0, 2)
+                productosCategoria.slice(0, 3)
             );
+
         });
 
-    } else {
-        // PRODUCTOS DE CADA CATEGORÍA
+    } else if (categoria) {
+
+        // FILTRAR PRODUCTOS SEGUN LA CATEGORIA
+
         productosMostrar = productos.filter(function(producto) {
             return producto.categoria === categoria;
         });
+
     }
 
-    // ESTABLECER CANTIDAD INICIAL
+    // GUARDAR LAS CANTIDADES SELECCIONADAS
+
+    let cantidadesSeleccionadas = {};
+
+    // MOSTRAR LAS TARJETAS DE PRODUCTOS
+
+    let contenido = "";
+
     productosMostrar.forEach(function(producto) {
-        producto.cantidad = 1;
+
+        const indice = productos.indexOf(producto);
+
+        cantidadesSeleccionadas[indice] = 1;
+
+        contenido += `
+            <article class="producto">
+
+                <img
+                    src="${producto.imagen}"
+                    alt="${producto.titulo}"
+                    onerror="this.onerror=null; this.src='../imagenes/FerreMundo.png';"
+                >
+
+                <h3>${producto.titulo}</h3>
+
+                <p>${producto.descripcion}</p>
+
+                <p class="precio">
+                    $${producto.precio.toLocaleString("es-AR")}
+                </p>
+
+                <div class="cantidad">
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(${indice}, -1)">
+                        -
+                    </button>
+
+                    <span class="numero" id="cantidad-${indice}">
+                        1
+                    </span>
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(${indice}, 1)">
+                        +
+                    </button>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btnAgregar"
+                    onclick="agregarAlCarrito(${indice})">
+                    Agregar al carrito
+                </button>
+
+            </article>
+        `;
+
     });
 
-    // MOSTRAR PRODUCTOS EN PANTALLA
-    function mostrarProductos() {
-        let contenido = "";
+    if (productosMostrar.length === 0) {
+        contenido = "<p>No hay productos disponibles en esta categoría.</p>";
+    }
 
-        productosMostrar.forEach(function(producto, indice) {
-            contenido += `
-                <article class="producto">
-                    <img src="${producto.imagen}" alt="${producto.titulo}">
+    contenedorProductos.innerHTML = contenido;
 
-                    <h3>${producto.titulo}</h3>
+    // AUMENTAR O DISMINUIR LA CANTIDAD
 
-                    <p>${producto.descripcion}</p>
+    window.cambiarCantidad = function(indice, cambio) {
 
-                    <p class="precio">
-                        $${producto.precio.toLocaleString("es-AR")}
-                    </p>
+        if (cantidadesSeleccionadas[indice] === undefined) {
+            return;
+        }
 
-                    <div class="cantidad">
-                        <button type="button" class="btnMenos" data-indice="${indice}">-</button>
+        cantidadesSeleccionadas[indice] += cambio;
 
-                        <span class="numero">${producto.cantidad}</span>
+        if (cantidadesSeleccionadas[indice] < 1) {
+            cantidadesSeleccionadas[indice] = 1;
+        }
 
-                        <button type="button" class="btnMas" data-indice="${indice}">+</button>
-                    </div>
+        document.getElementById("cantidad-" + indice).textContent =
+            cantidadesSeleccionadas[indice];
 
-                    <button type="button" class="btnAgregar" data-indice="${indice}">
-                        Añadir al carrito
-                    </button>
-                </article>
-            `;
+    };
+
+    // AGREGAR PRODUCTOS AL CARRITO
+
+    window.agregarAlCarrito = function(indice) {
+
+        const usuario = sessionStorage.getItem("usuario");
+
+        if (!usuario) {
+            alert("Debés iniciar sesión para comprar.");
+            return;
+        }
+
+        const productoSeleccionado = productos[indice];
+
+        if (!productoSeleccionado) {
+            return;
+        }
+
+        const cantidad = cantidadesSeleccionadas[indice] || 1;
+
+        const claveCarrito = "carrito_" + usuario;
+
+        let carrito = JSON.parse(
+            localStorage.getItem(claveCarrito)
+        ) || [];
+
+        const productoExistente = carrito.find(function(producto) {
+            return producto.titulo === productoSeleccionado.titulo;
         });
 
-        if (productosMostrar.length === 0) {
-            contenido = "<p>No hay productos en esta categoría.</p>";
+        if (productoExistente) {
+
+            productoExistente.cantidad += cantidad;
+
+        } else {
+
+            const nuevoProducto = {
+                titulo: productoSeleccionado.titulo,
+                descripcion: productoSeleccionado.descripcion,
+                precio: productoSeleccionado.precio,
+                imagen: productoSeleccionado.imagen,
+                cantidad: cantidad
+            };
+
+            carrito.push(nuevoProducto);
+
         }
 
-        contenedorProductos.innerHTML = contenido;
-    }
+        localStorage.setItem(
+            claveCarrito,
+            JSON.stringify(carrito)
+        );
 
-    mostrarProductos();
+        alert("¡Producto agregado al carrito!");
 
-    // CONTROLES DE CANTIDAD Y CARRITO
-    contenedorProductos.addEventListener("click", function(evento) {
-        const indice = Number(evento.target.dataset.indice);
+        // RESTABLECER LA CANTIDAD A 1
 
-        // AUMENTAR CANTIDAD
-        if (evento.target.classList.contains("btnMas")) {
-            productosMostrar[indice].cantidad++;
-            mostrarProductos();
-        }
+        cantidadesSeleccionadas[indice] = 1;
 
-        // DISMINUIR CANTIDAD
-        if (evento.target.classList.contains("btnMenos")) {
-            if (productosMostrar[indice].cantidad > 1) {
-                productosMostrar[indice].cantidad--;
-                mostrarProductos();
-            }
-        }
+        document.getElementById("cantidad-" + indice).textContent = 1;
 
-        // AGREGAR PRODUCTO AL CARRITO
-        if (evento.target.classList.contains("btnAgregar")) {
-            const productoSeleccionado = productosMostrar[indice];
+    };
 
-            // Recuperar el carrito guardado
-          const usuario = sessionStorage.getItem("usuario");
-          const claveCarrito = "carrito_" + usuario;
-
-            let carrito = JSON.parse(localStorage.getItem(claveCarrito)) || [];
-            // Buscar si el producto ya existe en el carrito
-            const productoExistente = carrito.find(function(producto) {
-                return producto.titulo === productoSeleccionado.titulo &&
-                       producto.categoria === productoSeleccionado.categoria;
-            });
-
-            if (productoExistente) {
-                productoExistente.cantidad += productoSeleccionado.cantidad;
-            } else {
-                carrito.push({
-                    titulo: productoSeleccionado.titulo,
-                    descripcion: productoSeleccionado.descripcion,
-                    precio: productoSeleccionado.precio,
-                    imagen: productoSeleccionado.imagen,
-                    categoria: productoSeleccionado.categoria,
-                    cantidad: productoSeleccionado.cantidad
-                });
-            }
-
-            // Guardar el carrito actualizado
-            localStorage.setItem(claveCarrito, JSON.stringify(carrito));
-
-            alert("Producto agregado al carrito: " + productoSeleccionado.titulo);
-
-            // Restablecer la cantidad seleccionada
-            productoSeleccionado.cantidad = 1;
-
-            mostrarProductos();
-        }
-    });
-}
+});

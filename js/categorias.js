@@ -3,25 +3,25 @@ const categorias = [
     {
         titulo: "Ferretería",
         descripcion: "Productos para reparación y mantenimiento.",
-        imagen: "./imagenes/ferreteria.jpg",
+        imagen: "../imagenes/ferreteria.jpg",
         direccion: "./ferreteria.html"
     },
     {
         titulo: "Herramientas",
         descripcion: "Herramientas para todos tus proyectos.",
-        imagen: "./imagenes/herramientas.jpg",
+        imagen: "../imagenes/herramientas.jpg",
         direccion: "./herramientas.html"
     },
     {
         titulo: "Materiales",
         descripcion: "Materiales para construcción y reparación.",
-        imagen: "./imagenes/materiales.jpg",
+        imagen: "../imagenes/materiales.jpg",
         direccion: "./materiales.html"
     },
     {
         titulo: "Seguridad",
         descripcion: "Elementos de protección personal.",
-        imagen: "./imagenes/seguridad.avif",
+        imagen: "../imagenes/seguridad.avif",
         direccion: "./seguridad.html"
     }
 ];

@@ -1,4 +1,4 @@
-
+﻿
 /* ESTILOS GENERALES */
 
 * {
@@ -114,7 +114,7 @@ img {
 }
 
 
-/* PRESENTACIÓN PRINCIPAL */
+/* PRESENTACI�N PRINCIPAL */
 
 .presentacion {
     text-align: center;
@@ -271,7 +271,7 @@ img {
 }
 
 
-/* BOTÓN AÑADIR AL CARRITO */
+/* BOT�N A�ADIR AL CARRITO */
 
 .btnAgregar {
     display: block;
@@ -293,7 +293,7 @@ img {
 }
 
 
-/* TARJETAS DE CATEGORÍAS */
+/* TARJETAS DE CATEGOR�AS */
 
 .tarjeta-categoria img {
     height: 180px;
@@ -318,7 +318,7 @@ img {
 }
 
 
-/* PRESENTACIÓN DE CATEGORÍAS */
+/* PRESENTACI�N DE CATEGOR�AS */
 
 .presentacion-categoria {
     background-color: white;
@@ -347,7 +347,7 @@ img {
 }
 
 
-/* ENCABEZADO DEL CATÁLOGO */
+/* ENCABEZADO DEL CAT�LOGO */
 
 .seccion-categoria {
     padding-top: 35px;
@@ -710,7 +710,7 @@ img {
 }
 
 
-/* PIE DE PÁGINA */
+/* PIE DE P�GINA */
 
 .footer {
     background-color: #1F3A5F;
@@ -773,7 +773,7 @@ img {
 }
 
 
-/* DISEÑO RESPONSIVE */
+/* DISE�O RESPONSIVE */
 
 @media (max-width: 900px) {
 
